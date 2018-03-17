@@ -26,6 +26,7 @@ export default {
 </script>
 
 <style lang="scss">
+  html { overflow-y: scroll; }
   html,
   body,
   div,
@@ -215,12 +216,35 @@ export default {
 
   .content-wrapper {
     min-height: 600px;
-    padding: 50px 100px;
+    padding: 100px 100px 50px 100px;
   }
 
   .content {
-    border: 1px solid gray;
     padding: 25px;
     height: 100%;
+  }
+
+  .category {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px;
+    font-size: 32px;
+  }
+
+  .button {
+    border: 1px solid #d77b17;
+    text-transform: uppercase;
+    background-color: #343434;
+    color: white;
+    width: 75px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #565656;
+      border: 1px solid #d77b17;
+    }
   }
 </style>

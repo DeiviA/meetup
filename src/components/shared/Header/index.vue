@@ -6,17 +6,16 @@
     <div class="menu-container">
       <div class="menu">
         <ul class="menu-list">
-          <li class="menu-list__item"><router-link active-class="active" to="/" exact>Home</router-link></li>
+          <li class="menu-list__item"><router-link active-class="active" to="/" exact>Meetups</router-link></li>
           <li class="menu-list__item"><router-link active-class="active" to="/trading-platform">Trading platform</router-link></li>
-          <li class="menu-list__item"><router-link active-class="active" to="/user-policy">User policy</router-link></li>
           <li class="menu-list__item"><router-link active-class="active" to="/contacts">Contacts</router-link></li>
         </ul>
       </div>
     </div>
     <div class="buttons-container">
       <div class="buttons-container-group" v-if="!isLoggedIn">
-          <button class="button">Sign In</button>
-          <button class="button">Sign Up</button>
+        <router-link tag="button" class="button" to="/signin">Sign In</router-link>
+        <router-link tag="button" class="button" to="/signup">Sign Up</router-link>
       </div>
       <div class="buttons-container-group" v-else>
         <button class="button">Account</button>
@@ -31,7 +30,7 @@ export default {
   name: 'WHeader',
   data () {
     return {
-      logo: 'MoneyGo',
+      logo: 'MeetUp',
       isLoggedIn: false
     }
   }
@@ -40,6 +39,8 @@ export default {
 
 <style lang="scss" scoped>
   .header-wrapper {
+    position: fixed;
+    width: 100%;
     height: 100px;
     background-color: #343434;
     display: flex;
@@ -103,13 +104,4 @@ export default {
     align-items: center;
   }
 
-  .button {
-    border: 1px solid #d77b17;
-    text-transform: uppercase;
-    color: white;
-    width: 75px;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
 </style>

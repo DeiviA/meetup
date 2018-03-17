@@ -1,13 +1,14 @@
-import Home from '../components/pages/Home/index.vue';
+import Meetups from '../components/pages/Meetups/index.vue';
 import TPlatform from '../components/pages/TradingPlatform/index.vue'
-import UPolicy from '../components/pages/UserPolicy/index.vue'
 import Contacts from '../components/pages/Contacts/index.vue'
+import Signin from '../components/pages/Signin/index.vue'
+import Signup from '../components/pages/Signup/index.vue'
 
 export const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'meetups',
+    component: Meetups
   },
   {
     path: '/trading-platform',
@@ -15,13 +16,18 @@ export const routes = [
     component: TPlatform
   },
   {
-    path: '/user-policy',
-    name: 'user-policy',
-    component: UPolicy
-  },
-  {
     path: '/contacts',
     name: 'contacts',
     component: Contacts
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: Signin
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: Signup
   }
 ]

@@ -5,9 +5,8 @@
     <div class="menu-container">
       <div class="menu">
         <ul class="menu-list">
-          <li class="menu-list__item"><router-link to="/">Home</router-link></li>
+          <li class="menu-list__item"><router-link to="/">Meetups</router-link></li>
           <li class="menu-list__item"><router-link to="/trading-platform">Trading platform</router-link></li>
-          <li class="menu-list__item"><router-link to="/user-policy">User policy</router-link></li>
           <li class="menu-list__item"><router-link to="/contacts">Contacts</router-link></li>
         </ul>
       </div>
