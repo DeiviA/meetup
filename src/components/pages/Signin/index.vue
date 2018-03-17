@@ -2,7 +2,7 @@
   <div>
     <h1 class="category">Sign In</h1>
     <div class="form-container">
-      <form class="form">
+      <form class="form" @submit.prevent="onSubmit">
         <input class="form__item" type="email"
                name="email"
                placeholder="Your Email"
@@ -20,12 +20,26 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'Signin',
     data () {
       return {
         email: '',
         password: ''
+      }
+    },
+    methods: {
+      ...mapActions(['signUserIn']),
+      onSubmit () {
+        this.signUserIn({ email: this.email, password: this.password })
+          .then(() => {
+            this.$router.push({ path: '/'})
+          })
+          .catch(error => {
+            console.log('onSubmit', error)
+          })
       }
     }
   }

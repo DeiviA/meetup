@@ -40,7 +40,7 @@
       onSubmit () {
         if (this.email === '' || this.password === '') return
         this.signUserUp({email: this.email, password: this.password})
-          .then(res => {
+          .then(() => {
             this.$router.push({ path: '/'})
           })
           .catch(error => {

@@ -48,7 +48,7 @@ export const actions = {
       })
   },
   signUserIn ({commit}, payload) {
-    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+    return firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(user => {
         const newUser = {
           id: user.uid,

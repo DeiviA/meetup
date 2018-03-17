@@ -236,7 +236,7 @@ export default {
     text-transform: uppercase;
     background-color: #343434;
     color: white;
-    width: 75px;
+    min-width: 75px;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
