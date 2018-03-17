@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="buttons-container">
-      <div class="buttons-container-group" v-if="!isLoggedIn">
+      <div class="buttons-container-group" v-if="!getUserLoggedIn">
         <router-link tag="button" class="button" to="/signin">Sign In</router-link>
         <router-link tag="button" class="button" to="/signup">Sign Up</router-link>
       </div>
@@ -26,13 +26,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
 export default {
   name: 'WHeader',
   data () {
     return {
-      logo: 'MeetUp',
-      isLoggedIn: false
+      logo: 'MeetUp'
     }
+  },
+  computed: {
+    ...mapGetters(['getUserLoggedIn'])
   }
 }
 </script>

@@ -6,12 +6,12 @@
         <input class="form__item" type="email"
                name="email"
                placeholder="Your Email"
-               value=""
+               v-model="email"
         ></input>
         <input class="form__item" type="password"
                name="password"
                placeholder="Your Password"
-               value=""
+               v-model="password"
         ></input>
         <button type="submit" class="button">Sign In</button>
       </form>
@@ -24,6 +24,8 @@
     name: 'Signin',
     data () {
       return {
+        email: '',
+        password: ''
       }
     }
   }

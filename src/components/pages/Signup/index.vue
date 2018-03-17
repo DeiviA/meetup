@@ -2,21 +2,21 @@
   <div>
     <h1 class="category">Sign Up</h1>
     <div class="form-container">
-      <form class="form">
+      <form class="form" @submit.prevent="onSubmit">
         <input class="form__item" type="email"
                name="email"
                placeholder="Your Email"
-               value=""
+               v-model="email"
         ></input>
         <input class="form__item" type="password"
                name="password"
                placeholder="Your Password"
-               value=""
+               v-model="password"
         ></input>
         <input class="form__item" type="password"
                name="confirm-password"
                placeholder="Confirm Password"
-               value=""
+               v-model="confirmPassword"
         ></input>
         <button type="submit" class="button">Sign In</button>
       </form>
@@ -25,15 +25,28 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
     name: 'Signup',
     data () {
       return {
+        email: '',
+        password: '',
+        confirmPassword: ''
       }
     },
-    computed: {
-      ...mapGetters(['getCounter'])
+    methods: {
+      ...mapActions(['signUserUp']),
+      onSubmit () {
+        if (this.email === '' || this.password === '') return
+        this.signUserUp({email: this.email, password: this.password})
+          .then(res => {
+            this.$router.push({ path: '/'})
+          })
+          .catch(error => {
+            console.log('onSubmit', error)
+          })
+      }
     }
   }
 </script>
