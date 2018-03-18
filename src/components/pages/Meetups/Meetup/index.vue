@@ -1,79 +1,81 @@
 <template>
-  <div class="meetup-container">
-    <div class="meetup-image-container">
-      <img class="meetup-image" :src="imageUrl" alt="">
-    </div>
-    <div class="description">
-      <div class="description__header">
-        <p class="description__title">{{ title }}</p>
+  <div>
+    <h1 class="category">{{ meetup.title }}</h1>
+    <div class="meetup">
+      <div class="meetup__date">
+        <p>{{ meetup.date }}</p>
       </div>
-      <div class="description__description">
-        <p class="description__text">{{ description }}</p>
+      <div class="meetup__image">
+        <img :src="meetup.imageUrl" :alt="meetup.title">
+        <div class="meetup__location">
+          <p>{{ meetup.location }}</p>
+        </div>
+      </div>
+      <div class="meetup__date">
+        <p>{{ meetup.date }}</p>
+      </div>
+      <div class="meetup__description">
+        <p>{{ meetup.description }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'meetup',
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    },
-    imageUrl: {
-      type: String,
-      required: true
-    }
-  },
-  data () {
+  export default {
+    name: 'Meetup',
+    data () {
       return {
+        meetup: {
+          title: 'Meetup',
+          id: '',
+          description: 'Lorem ipsum dolor sit amet, at pro possit utroque, no molestie forensibus usu.',
+          imageUrl: '',
+          location: 'Location',
+          date: '22.02.2022'
+        }
       }
+    },
+    created () {
+      console.log(this.$route.params)
+      this.meetup = {...this.$route.params}
+      console.log(this.meetup)
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-  .meetup-container {
+  .meetup {
     width: 100%;
-    height: 200px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: flex-start;
-    border: 1px solid #343434;
-    overflow: hidden;
-  }
-
-  .meetup-image-container {
-    width: 20%;
-    height: 100%;
+    padding: 0 100px;
     display: flex;
     justify-content: center;
-  }
-
-  .meetup-image {
-    display: block;
-  }
-
-  .description {
-    width: 80%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
+    align-items: center;
     flex-direction: column;
-    padding: 20px;
-    &__title {
-      font-size: 25px;
-      margin-bottom: 25px;
+    &__date {
+      font-size: 16px;
+      color: #8f8f8f;
+      padding: 10px;
+      text-align: center;
     }
-    &__text {
-      line-height: 20px;
+    &__image {
+      max-width: 600px;
+      position: relative;
+    }
+    &__location {
+      width: 100%;
+      position: absolute;
+      bottom: 2px;
+      color: white;
+      background-color: rgba(209, 119, 24, 0.63);
+      padding: 15px;
+      font-size: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    &__description {
+      line-height: 25px;
+      padding: 0 50px;
     }
   }
-
 </style>

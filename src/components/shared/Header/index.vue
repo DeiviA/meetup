@@ -1,13 +1,14 @@
 <template>
   <div class="header-wrapper">
     <div class="logo-container">
-      <p class="logo-container__text">{{logo}}</p>
+      <!--<p class="logo-container__text">{{logo}}</p>-->
+      <router-link tag="p" class="logo-container__text" to="/">Meet<span class="logo-container__text_orange">Up</span></router-link>
     </div>
     <div class="menu-container">
       <div class="menu">
         <ul class="menu-list">
-          <li class="menu-list__item"><router-link active-class="active" to="/" exact>Meetups</router-link></li>
-          <li class="menu-list__item"><router-link active-class="active" to="/trading-platform">Trading platform</router-link></li>
+          <li class="menu-list__item"><router-link active-class="active" to="/meetups">Meetups</router-link></li>
+          <li class="menu-list__item"><router-link active-class="active" to="/create-meetup">Create Meetup</router-link></li>
           <li class="menu-list__item"><router-link active-class="active" to="/contacts">Contacts</router-link></li>
         </ul>
       </div>
@@ -18,15 +19,15 @@
         <router-link tag="button" class="button" to="/signup">Sign Up</router-link>
       </div>
       <div class="buttons-container-group" v-else>
-        <button class="button">Account</button>
-        <button class="button">Log Out</button>
+        <router-link tag="button" class="button" to="/account">Account</router-link>
+        <button class="button" @click="onLogOut">Log Out</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'WHeader',
   data () {
@@ -36,6 +37,13 @@ export default {
   },
   computed: {
     ...mapGetters(['getUserLoggedIn'])
+  },
+  methods: {
+    ...mapActions(['logOut']),
+    onLogOut () {
+      this.logOut()
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>
@@ -43,6 +51,7 @@ export default {
 <style lang="scss" scoped>
   .header-wrapper {
     position: fixed;
+    z-index: 100;
     width: 100%;
     height: 100px;
     background-color: #343434;
@@ -59,6 +68,10 @@ export default {
       color: white;
       font-weight: 700;
       font-size: 26px;
+      cursor: pointer;
+      &_orange {
+        color: #d77b17;
+      }
     }
   }
 

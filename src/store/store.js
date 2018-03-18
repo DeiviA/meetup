@@ -9,7 +9,8 @@ Vue.use(Vuex);
 export const state = {
   counter: 0,
   user: null,
-  isLoggedIn: false
+  isLoggedIn: false,
+  meetups: []
 };
 
 export const getters = {
@@ -18,6 +19,9 @@ export const getters = {
   },
   getUserLoggedIn (state) {
     return state.isLoggedIn
+  },
+  getUser (state) {
+    return state.user
   }
 };
 
@@ -25,21 +29,12 @@ export const actions = {
   signUserUp ({commit}, payload) {
     return firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
       .then(user => {
-        user.updateProfile({
-          displayName: "Jane Q. User",
-          photoURL: "https://example.com/jane-q-user/profile.jpg"
-        }).then(function() {
-          console.log('good');
-        }).catch(function(error) {
-          console.log('wrong');
-        });
-
         const newUser = {
           id: user.uid,
-          name: '',
-          surname: ''
+          email: payload.email,
+          name: user.displayName,
+          photo: user.photoURL
         };
-        console.log('user =', user);
         commit(types.LOG_IN);
         commit(types.SET_USER, newUser);
       })
@@ -52,16 +47,42 @@ export const actions = {
       .then(user => {
         const newUser = {
           id: user.uid,
-          name: '',
-          surname: ''
+          email: payload.email,
+          name: user.displayName,
+          photo: user.photoURL
         };
-        console.log('user =', user);
         commit(types.LOG_IN);
         commit(types.SET_USER, newUser);
       })
       .catch(error => {
         console.log('signUserUp', error)
       })
+  },
+  updateProfileInfo ({commit}, payload) {
+    const user = firebase.auth().currentUser
+    user.updateProfile({
+      displayName: payload.name,
+      photoURL: payload.photo
+    }).then(() => {
+      console.log('success from updateProfileInfo');
+    }).catch((error) => {
+      console.log('updateProfileInfo', error);
+    });
+  },
+  autoSignIn ({commit}, payload) {
+    const newUser = {
+      id: payload.uid,
+      email: payload.email,
+      name: payload.displayName,
+      photo: payload.photoURL
+    };
+    console.log('autoSignIn', payload);
+    commit(types.LOG_IN);
+    commit(types.SET_USER, newUser);
+  },
+  logOut ({commit}) {
+    firebase.auth().signOut()
+    commit(types.LOG_OUT)
   }
 };
 
@@ -74,6 +95,7 @@ export const mutations = {
   },
   [types.LOG_OUT] (state) {
     state.isLoggedIn = false
+    state.user = null
   }
 }
 
