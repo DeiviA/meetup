@@ -10,7 +10,7 @@ export const state = {
   counter: 0,
   user: null,
   isLoggedIn: false,
-  meetups: []
+  meetups: {}
 };
 
 export const getters = {
@@ -22,6 +22,9 @@ export const getters = {
   },
   getUser (state) {
     return state.user
+  },
+  getMeetups (state) {
+    return state.meetups
   }
 };
 
@@ -83,6 +86,38 @@ export const actions = {
   logOut ({commit}) {
     firebase.auth().signOut()
     commit(types.LOG_OUT)
+  },
+  createNewMeetup ({commit}, payload) {
+    const newMeetup ={
+      title: payload.title,
+      description: payload.description,
+      location: payload.location,
+      organizerId: payload.organizerId,
+      participantsId: payload.participantsId,
+      date: payload.date
+    }
+    let imageUrl
+    let key
+    firebase.database().ref('meetups').push(newMeetup)
+      .then(data => {
+        key = data.key
+        return key
+      })
+      .then(key => {
+        const format = payload.photo.name.substring(payload.photo.name.lastIndexOf('.'));
+        return firebase.storage().ref('meetups/' + key + format).put(payload.photo)
+      })
+      .then(fileData => {
+        imageUrl = fileData.metadata.downloadURLs[0]
+        return firebase.database().ref('meetups').child(key).update({ imageUrl, key })
+      })
+      .then(() => {
+        // commit()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
   }
 };
 

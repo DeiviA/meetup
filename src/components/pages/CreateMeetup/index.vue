@@ -48,6 +48,7 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker';
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'CreateMeetup',
@@ -56,9 +57,8 @@
       return {
         meetup: {
           title: '',
-          id: '',
           description: '',
-          photo: '',
+          photo: null,
           imageUrl: '',
           location: '',
           date: new Date()
@@ -68,7 +68,11 @@
         }
       }
     },
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
+      ...mapActions(['createNewMeetup']),
       onClickButton () {
         this.$refs.img.click()
       },
@@ -85,12 +89,24 @@
           this.meetup.imageUrl = fileReader.result
         })
         fileReader.readAsDataURL(file)
+        this.meetup.photo = file
       },
       convertDate (date) {
         return date.toISOString().substring(0, 10).split('-').reverse().join('.')
       },
       onCreateNewMeeting () {
-        console.log('create')
+        const convertedDate = this.convertDate(this.meetup.date)
+        const userId = this.getUser.id
+        const newMeetup ={
+          title: this.meetup.title,
+          description: this.meetup.description,
+          location: this.meetup.location,
+          organizerId: userId,
+          date: convertedDate,
+          participantsId: [userId],
+          photo: this.meetup.photo
+        }
+        this.createNewMeetup(newMeetup)
       },
       selectedDate () {
         const date = this.meetup.date
