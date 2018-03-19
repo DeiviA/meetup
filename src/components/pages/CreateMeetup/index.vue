@@ -96,14 +96,18 @@
       },
       onCreateNewMeeting () {
         const convertedDate = this.convertDate(this.meetup.date)
-        const userId = this.getUser.id
-        const newMeetup ={
+        const user = {
+          id: this.getUser.id,
+          name: this.getUser.name,
+          photo: this.getUser.photo
+        }
+        const newMeetup = {
           title: this.meetup.title,
           description: this.meetup.description,
           location: this.meetup.location,
-          organizerId: userId,
+          organizer: user,
           date: convertedDate,
-          participantsId: [userId],
+          participants: [user],
           photo: this.meetup.photo
         }
         this.createNewMeetup(newMeetup)

@@ -92,8 +92,8 @@ export const actions = {
       title: payload.title,
       description: payload.description,
       location: payload.location,
-      organizerId: payload.organizerId,
-      participantsId: payload.participantsId,
+      organizer: payload.organizer,
+      participants: payload.participants,
       date: payload.date
     }
     let imageUrl
