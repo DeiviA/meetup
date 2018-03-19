@@ -6,7 +6,7 @@
         <router-view></router-view>
       </div>
     </div>
-    <w-footer></w-footer>
+    <!--<w-footer></w-footer>-->
   </div>
 </template>
 
@@ -246,5 +246,9 @@ export default {
       background-color: #565656;
       border: 1px solid #d77b17;
     }
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
