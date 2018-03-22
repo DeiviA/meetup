@@ -87,6 +87,13 @@ export const actions = {
     firebase.auth().signOut()
     commit(types.LOG_OUT)
   },
+  registerOnMeetup ({commit, state}, payload) {
+    const {id, name, photo} = state.user
+    firebase.database().ref('meetups').child(payload.key + '/participants').push({id, name, photo})
+  },
+  unregisterOnMeetup ({commit}, payload) {
+    firebase.database().ref('meetups').child(payload.key + '/participants/' + payload.userKey).remove()
+  },
   createNewMeetup ({commit}, payload) {
     const newMeetup ={
       title: payload.title,
@@ -117,7 +124,6 @@ export const actions = {
       .catch(error => {
         console.log(error)
       })
-
   }
 };
 
