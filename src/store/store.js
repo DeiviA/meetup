@@ -79,7 +79,7 @@ export const actions = {
       name: payload.displayName,
       photo: payload.photoURL
     };
-    console.log('autoSignIn', payload);
+    console.log('autoSignIn');
     commit(types.LOG_IN);
     commit(types.SET_USER, newUser);
   },
@@ -105,7 +105,7 @@ export const actions = {
     }
     let imageUrl
     let key
-    firebase.database().ref('meetups').push(newMeetup)
+    return firebase.database().ref('meetups').push(newMeetup)
       .then(data => {
         key = data.key
         return key
@@ -119,7 +119,17 @@ export const actions = {
         return firebase.database().ref('meetups').child(key).update({ imageUrl, key })
       })
       .then(() => {
-        // commit()
+        commit(types.ADD_MEETUP, {...newMeetup, imageUrl, key})
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  getAllMeetups ({commit}) {
+    return firebase.database().ref('meetups').once('value')
+      .then(res => {
+        const data = res.val()
+        commit(types.SET_MEETUPS, data)
       })
       .catch(error => {
         console.log(error)
@@ -137,6 +147,12 @@ export const mutations = {
   [types.LOG_OUT] (state) {
     state.isLoggedIn = false
     state.user = null
+  },
+  [types.SET_MEETUPS] (state, payload) {
+    state.meetups = payload
+  },
+  [types.ADD_MEETUP] (state, payload) {
+    state.meetups = { ...state.meetups, payload}
   }
 }
 

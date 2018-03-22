@@ -11,6 +11,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import WHeader from './components/shared/Header/index.vue';
   import WFooter from './components/shared/Footer/index.vue';
 
@@ -21,6 +22,12 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods: {
+    ...mapActions(['getAllMeetups'])
+  },
+  beforeMount () {
+    this.getAllMeetups()
   }
 }
 </script>

@@ -11,9 +11,6 @@
           <p>{{ meetup.location }}</p>
         </div>
       </div>
-      <div class="meetup__date">
-        <p>{{ meetup.date }}</p>
-      </div>
       <div class="meetup__description">
         <p>{{ meetup.description }}</p>
       </div>
@@ -37,9 +34,7 @@
       }
     },
     created () {
-      console.log(this.$route.params)
       this.meetup = {...this.$route.params}
-      console.log(this.meetup)
     }
   }
 </script>
@@ -74,6 +69,7 @@
       text-transform: uppercase;
     }
     &__description {
+      margin-top: 20px;
       line-height: 25px;
       padding: 0 50px;
     }

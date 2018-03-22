@@ -23,7 +23,6 @@
           <datepicker
             v-model="meetup.date"
             :disabled="disabled"
-            @selected="selectedDate"
             name="createDate"
             id="datePicker"
             input-class="create-meetup__item create-meetup__item_date"
@@ -72,7 +71,7 @@
       ...mapGetters(['getUser'])
     },
     methods: {
-      ...mapActions(['createNewMeetup']),
+      ...mapActions(['createNewMeetup', 'getAllMeetups']),
       onClickButton () {
         this.$refs.img.click()
       },
@@ -111,11 +110,9 @@
           photo: this.meetup.photo
         }
         this.createNewMeetup(newMeetup)
-      },
-      selectedDate () {
-        const date = this.meetup.date
-        console.log(date)
-        console.log(date.toISOString().substring(0, 10).split('-').reverse().join('.'))
+          .then(() => {
+            this.$router.push({ name: 'meetups'})
+          })
       }
     }
   }
