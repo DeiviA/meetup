@@ -2,9 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import * as firebase from 'firebase'
+import Vuelidate from 'vuelidate'
+
 import { routes } from './router/routes'
 import store from './store/store'
 
+Vue.use(Vuelidate);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
